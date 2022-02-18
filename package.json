@@ -7,7 +7,9 @@
     "start": "node index.js",
     "server": "nodemon index.js",
     "migrate": "knex migrate:latest",
-    "rollback": "knex migrate:rollback"
+    "rollback": "knex migrate:rollback",
+    "seed": "knex seed:run",
+    "cleaner": "knex seed:run --specific=01-cleaner.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,7 @@
   "dependencies": {
     "express": "^4.17.3",
     "knex": "^0.95.15",
+    "knex-cleaner": "^1.3.1",
     "sqlite3": "^5.0.2"
   }
 }
