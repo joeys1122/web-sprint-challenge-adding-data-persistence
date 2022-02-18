@@ -15,7 +15,7 @@ const find = async () => {
 };
 
 const add = (task) => {
-  console.log(task)
+  
 };
 
 module.exports = {
