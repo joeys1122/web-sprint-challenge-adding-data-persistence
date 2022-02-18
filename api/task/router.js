@@ -1,5 +1,6 @@
 const express = require('express');
 const model = require('./model');
+const { checkTask } = require('./middleware');
 
 const router = express.Router();
 
@@ -9,8 +10,12 @@ router.get('/', (req, res, next) => {
     .catch(next);
 });
 
-router.post('/', (req, res) => {
-
+router.post('/', checkTask, (req, res, next) => {
+  model.add(req.body)
+    .then(task => {
+      res.status(201).json(task);
+    })
+    .catch(next);
 });
 
 module.exports = router;

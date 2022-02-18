@@ -1,14 +1,11 @@
 const db = require('../../data/dbConfig');
+const { fixCompleted } = require('./middleware');
 
 const find = async () => {
   const projects = await db('projects');
 
   projects.forEach(project => {
-    if(project.project_completed === 1) {
-      project.project_completed = true;
-    } else {
-      project.project_completed = false;
-    }
+    fixCompleted(project);
   });
 
   return projects;
@@ -17,13 +14,7 @@ const find = async () => {
 const add = project => {
   return db('projects').insert(project).then(async ([id]) => {
     const newProj = await findById(id);
-
-    if(newProj.project_completed === 1) {
-      newProj.project_completed = true;
-    } else {
-      newProj.project_completed = false;
-    }
-
+    fixCompleted(newProj);
     return newProj;
   });
 };
